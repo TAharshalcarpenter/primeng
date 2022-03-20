@@ -19,7 +19,11 @@ jobs:
 
             - name: Git log
               run: |
-                git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s -%an'
+                git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'
+
+            - name: Get this branch name
+              id: extract_branch
+              run: echo ::set-output name=BRANCH_NAME::$(git branch --show-current)
 
             - name: Use Node.js
               uses: actions/setup-node@v2
@@ -27,4 +31,6 @@ jobs:
                 node-version: "14.x"
 
             - name: Run test
+              env:
+                  test: Hello
               run: node index
