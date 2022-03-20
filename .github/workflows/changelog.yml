@@ -21,18 +21,16 @@ jobs:
               id: changelog
               run: |
                 git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'
-                echo "::set-output name=LOG::$(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an')"
-                echo "
+                echo ::set-output name=LOG::$(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an')
 
             - name: Get this branch name
               id: extract_branch
-              run: echo ::set-output name=BRANCH_NAME::$(git branch --show-current)
+              run: echo ${{ steps.changelog.outputs.LOG }}
 
             - name: Use Node.js
               uses: actions/setup-node@v2
               with:
                 node-version: "14.x"
-              run: echo ${{ steps.changelog.outputs.LOG }}
 
             - name: Run test
               env:
