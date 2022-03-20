@@ -18,8 +18,10 @@ jobs:
                 ref: master
 
             - name: Git log
+              id: changelog
               run: |
                 git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'
+                echo "::set-output name=LOG::$(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an')"
 
             - name: Get this branch name
               id: extract_branch
@@ -32,5 +34,5 @@ jobs:
 
             - name: Run test
               env:
-                  test: Hello
+                  changelog: ${{ steps.changelog.outputs.LOG }}
               run: node index
