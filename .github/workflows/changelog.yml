@@ -14,14 +14,14 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
+            - name: Git log
+              run: |
+                git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --oneline
+
             - name: Use Node.js
               uses: actions/setup-node@v2
               with:
                 node-version: "14.x"
-
-            - name: Git log
-              run: |
-                  git log '${{ github.event.inputs.taggie }}'..HEAD --oneline
 
             - name: Run test
               run: node index
