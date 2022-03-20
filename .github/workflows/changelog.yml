@@ -21,7 +21,7 @@ jobs:
               id: changelog
               run: |
                 git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'
-                echo ::set-output name=LOG::$(echo git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an')
+                echo ::set-output name=LOG::$(echo $(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'))
 
             - name: Get this branch name
               id: extract_branch
