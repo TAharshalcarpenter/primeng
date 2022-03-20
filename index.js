@@ -1,5 +1,8 @@
+const DELIMITER = '-delimiter-';
+
 function onInit() {
-    console.log(process.env.changelog);
+    let logs = process.env.changelog.split(DELIMITER);
+    console.log(logs);
 }
 
 onInit();

@@ -20,11 +20,7 @@ jobs:
             - name: Git log
               id: changelog
               run: |
-                echo "::set-output name=LOG::$(echo $(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an'))"
-
-            - name: Get this branch name
-              id: extract_branch
-              run: echo ${{ steps.changelog.outputs.LOG }}
+                echo "::set-output name=LOG::$(echo $(git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s - %an -delimiter-'))"
 
             - name: Use Node.js
               uses: actions/setup-node@v2
