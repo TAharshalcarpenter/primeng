@@ -21,7 +21,7 @@ jobs:
 
             - name: Git log
               run: |
-                  git log `${{ github.event.inputs.taggie }}`..HEAD --oneline
+                  git log '${{ github.event.inputs.taggie }}'..HEAD --oneline
 
             - name: Run test
               run: node index
