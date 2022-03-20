@@ -19,7 +19,7 @@ jobs:
 
             - name: Git log
               run: |
-                git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --oneline
+                git log `git tag --sort=creatordate | /usr/bin/tail -1`..HEAD --pretty=format:'%s -%an'
 
             - name: Use Node.js
               uses: actions/setup-node@v2
