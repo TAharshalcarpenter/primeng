@@ -19,5 +19,9 @@ jobs:
               with:
                 node-version: "14.x"
 
+            - name: Git log
+              run: |
+                  git log `${{ github.event.inputs.taggie }}`..HEAD --oneline
+
             - name: Run test
               run: node index
