@@ -2,14 +2,10 @@ const DELIMITER = '-~-';
 
 function onInit() {
     let logs = process.env.changelog.split(DELIMITER);
+    console.log(formatMessage(logs));
 }
 
 function formatMessage(logs) {
-    let htmlMessage = '';
-    console.log(sortThis(logs));
-}
-
-function sortThis(logs) {
     let message = '';
     let bugfixes = '';
     let features = '';
