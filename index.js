@@ -21,14 +21,8 @@ function formatMessage(logs) {
         }
     })
 
-    message = `
-    Features: \n
-        ${features} \n
-	BugFixes: \n
-	    ${bugfixes} \n
-	Others: \n
-	    ${others}
-  `;
+    message = `Features: \n ${features} \n BugFixes: \n ${bugfixes} \n Others: \n ${others}`;
+
     return message;
 }
 

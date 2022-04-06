@@ -10,6 +10,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+            SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'
+
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -28,6 +31,12 @@ jobs:
                 node-version: "14.x"
 
             - name: Run test
+              id: format
               env:
-                  changelog: ${{ steps.changelog.outputs.LOG }}
-              run: node index
+                changelog: ${{ steps.changelog.outputs.LOG }}
+              run: echo "::set-output name=FORMAT::$(echo node index)"
+
+            - name: Send message to slack
+              uses: act10ns/slack@v1
+              with:
+                steps: ${{ steps.format.outputs.FORMAT }}
