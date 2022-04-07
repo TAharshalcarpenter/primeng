@@ -42,6 +42,6 @@ jobs:
               uses: act10ns/slack@v1
               with:
                 status: ${{ job.status }}
-                message: ${{ steps.format.outputs.FORMAT }}
+                blocks: ${{ steps.format.outputs.FORMAT }}
                 channel: '#testing'
               if: always()
