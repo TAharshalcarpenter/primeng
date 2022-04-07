@@ -41,4 +41,5 @@ jobs:
               with:
                 status: ${{ job.status }}
                 steps: ${{ toJson(steps.format.outputs.FORMAT) }}
+                channel: '#testing'
               if: always()
