@@ -106,7 +106,6 @@ function sendSlackMessage(messageBlock) {
     // general request options, we defined that it's a POST request and content is JSON
     const requestOptions = {
         method: 'POST',
-        json: true,
         header: {
             'Content-Type': 'application/json'
         }
@@ -132,9 +131,9 @@ function sendSlackMessage(messageBlock) {
     });
 
     // send our message body (was parsed to JSON beforehand)
-    req.write({
+    req.write(JSON.stringify({
         "blocks": messageBlock
-    });
+    }));
     req.end();
 }
 
