@@ -2,6 +2,7 @@ const DELIMITER = '-~-';
 
 function onInit() {
     let logs = process.env.changelog.split(DELIMITER);
+    console.log("ABC - 123");
     console.log(formatMessage(logs));
 }
 
