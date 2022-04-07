@@ -1,8 +1,10 @@
+const https = require('https');
+
 const DELIMITER = '-~-';
 
 function onInit() {
     let logs = process.env.changelog.split(DELIMITER);
-    console.log(createSlackBlock(logs));
+    sendSlackMessage(createSlackBlock(logs));
 }
 
 function formatMessage(logs) {
@@ -98,6 +100,41 @@ function createSlackBlock(logs) {
 
 function getSlackLinkedListItem(item) {
     return item.trim().replace(/(LIQ-\d+|LQ-\d+|INTL-\d+)/g, "<https://tripactions.atlassian.net/browse/$&|$&>");
+}
+
+function sendSlackMessage(messageBlock) {
+    // general request options, we defined that it's a POST request and content is JSON
+    const requestOptions = {
+        method: 'POST',
+        header: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const req = https.request(process.env.webhook, requestOptions, (res) => {
+        let response = '';
+
+
+        res.on('data', (d) => {
+            response += d;
+        });
+
+        // response finished, resolve the promise with data
+        res.on('end', () => {
+            console.log(response);
+        })
+    });
+
+    // there was an error, reject the promise
+    req.on('error', (error) => {
+        console.log(error);
+    });
+
+    // send our message body (was parsed to JSON beforehand)
+    req.write({
+        "blocks": messageBlock
+    });
+    req.end();
 }
 
 onInit();

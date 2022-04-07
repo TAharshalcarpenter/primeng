@@ -33,16 +33,8 @@ jobs:
             - name: Run test
               id: format
               env:
+                webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
                 changelog: ${{ steps.changelog.outputs.LOG }}
               run: |
                 echo "::set-output name=FORMAT::$(node ./index.js)"
                 echo "::set-output name=FORMAT::$(echo $(node ./index.js))"
-
-            - name: Send message to slack
-              uses: act10ns/slack@v1
-              with:
-                status: ${{ job.status }}
-                config: |
-                  blocks: ${{ toJson(steps.format.outputs.FORMAT) }}
-                channel: '#testing'
-              if: always()
