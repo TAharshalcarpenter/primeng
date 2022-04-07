@@ -41,8 +41,7 @@ function createSlackBlock(logs) {
         }
     })
 
-    return {
-        "blocks": [
+    return [
                 {
                     "type": "header",
                     "text": {
@@ -94,8 +93,7 @@ function createSlackBlock(logs) {
                     }
                 ]
             }
-        ]
-    }
+        ];
 }
 
 function getSlackLinkedListItem(item) {
