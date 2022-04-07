@@ -35,7 +35,7 @@ jobs:
               env:
                 changelog: ${{ steps.changelog.outputs.LOG }}
               run: |
-                node ./index.js
+                echo "$(node ./index.js)"
                 echo "::set-output name=FORMAT::$(echo $(node ./index.js))"
 
             - name: Send message to slack
